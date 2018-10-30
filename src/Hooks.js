@@ -34,9 +34,10 @@ export function useNavigationEvents(handleEvt) {
     },
     // For TODO consideration: If the events are tied to the navigation object and the key
     // identifies the nav object, then we should probably pass [navigation.state.key] here, to
-    // make sure react doesn't needlessly detach and re-attach this effect. Need more thorough
-    // testing to be sure..
+    // make sure react doesn't needlessly detach and re-attach this effect. In practice this
+    // seems to cause troubles
     undefined
+    // [navigation.state.key]
   );
 }
 
@@ -60,8 +61,10 @@ function focusStateOfEvent(eventName) {
       return willFocusState;
     case 'willBlur':
       return willBlurState;
-    default:
+    case 'didBlur':
       return didBlurState;
+    default:
+      return null;
   }
 }
 
@@ -70,7 +73,8 @@ export function useFocusState() {
   const isFocused = navigation.isFocused();
   const [focusState, setFocusState] = useState(getInitialFocusState(isFocused));
   function handleEvt(e) {
-    setFocusState(focusStateOfEvent(e.type));
+    const newState = focusStateOfEvent(e.type);
+    newState && setFocusState(newState);
   }
   useNavigationEvents(handleEvt);
   return focusState;
