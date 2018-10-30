@@ -6,7 +6,7 @@
 
 🏄‍♀️ Surfing the wave of React Hook hype with a few convenience hooks for `@react-navigation/core` v3. Destined to work on web, server, and React Native. Contributions welcome!
 
-### useNavigation
+### useNavigation()
 
 This is the main convenience hook. It provides the regular navigation prop, as you'd get via the screen prop or by using `withNavigation`.
 
@@ -27,7 +27,7 @@ function MyLinkButton() {
 }
 ```
 
-### useNavigationParam
+### useNavigationParam(paramName)
 
 Access a param for the current navigation state
 
@@ -40,7 +40,7 @@ function MyScreen() {
 
 Literally the same as `useNavigation().getParam(paramName)`
 
-### useNavigationState
+### useNavigationState()
 
 Access the navigation state of the current route, or if you're in a navigator view, access the navigation state of your sub-tree.
 
@@ -53,13 +53,13 @@ function MyScreen() {
 
 Literally the same as `useNavigation().state`
 
-### useNavigationKey
+### useNavigationKey()
 
 Convenient way to access the key of the current route.
 
 Literally the same as `useNavigationState().key`
 
-### useNavigationEvents
+### useNavigationEvents(handler)
 
 Subscribe to navigation events in the current route context.
 
@@ -86,7 +86,7 @@ function ReportNavigationEvents() {
 
 The event payload will be the same as provided by `addListener`, as documented here: https://reactnavigation.org/docs/en/navigation-prop.html#addlistener-subscribe-to-updates-to-navigation-lifecycle
 
-### useFocusState
+### useFocusState()
 
 Convenient way of subscribing to events and observing focus state of the current screen.
 
