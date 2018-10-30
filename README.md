@@ -13,6 +13,10 @@ https://github.com/react-navigation/web-server-example
 
 ## Docs
 
+`yarn add react-navigation-hooks`
+
+`import * from 'react-navigation-hooks'`
+
 ### useNavigation()
 
 This is the main convenience hook. It provides the regular navigation prop, as you'd get via the screen prop or by using `withNavigation`.
