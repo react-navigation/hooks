@@ -96,7 +96,7 @@ function MyFocusTag() {
 }
 ```
 
-One of the following values will always be true in the focus state:
+One (always, and only one) of the following values will be true in the focus state:
 
 - isFocused
 - isBlurring
