@@ -44,8 +44,8 @@ Access a param for the current navigation state
 
 ```js
 function MyScreen() {
-  const { routeName } = useNavigationState();
-  return <p>My route name is {routeName}</p>;
+  const name = useNavigationParam('name');
+  return <p>name is {name}</p>;
 }
 ```
 
