@@ -21,15 +21,17 @@ export function useNavigationEvents(handleEvt) {
   const navigation = useNavigation();
   useEffect(
     () => {
-      const sWF = navigation.addListener('willFocus', handleEvt);
-      const sDF = navigation.addListener('didFocus', handleEvt);
-      const sWB = navigation.addListener('willBlur', handleEvt);
-      const sDB = navigation.addListener('didBlur', handleEvt);
+      const subsA = navigation.addListener('action', handleEvt);
+      const subsWF = navigation.addListener('willFocus', handleEvt);
+      const subsDF = navigation.addListener('didFocus', handleEvt);
+      const subsWB = navigation.addListener('willBlur', handleEvt);
+      const subsDB = navigation.addListener('didBlur', handleEvt);
       return () => {
-        sWF.remove();
-        sDF.remove();
-        sWB.remove();
-        sDB.remove();
+        subsA.remove();
+        subsWF.remove();
+        subsDF.remove();
+        subsWB.remove();
+        subsDB.remove();
       };
     },
     // For TODO consideration: If the events are tied to the navigation object and the key
