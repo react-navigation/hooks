@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useRef } from 'react';
 import { NavigationContext } from '@react-navigation/core';
 
 export function useNavigation() {
@@ -19,27 +19,29 @@ export function useNavigationKey() {
 
 export function useNavigationEvents(handleEvt) {
   const navigation = useNavigation();
+  const currentListenerRef = useRef(handleEvt);
+  // We want to make sure to run the last closure/listener provided by the user
+  useEffect(() => {
+    currentListenerRef.current = handleEvt;
+  });
   useEffect(
     () => {
-      const subsA = navigation.addListener('action', handleEvt);
-      const subsWF = navigation.addListener('willFocus', handleEvt);
-      const subsDF = navigation.addListener('didFocus', handleEvt);
-      const subsWB = navigation.addListener('willBlur', handleEvt);
-      const subsDB = navigation.addListener('didBlur', handleEvt);
-      return () => {
-        subsA.remove();
-        subsWF.remove();
-        subsDF.remove();
-        subsWB.remove();
-        subsDB.remove();
+      // We pass a stable listener to react-navigation event system, it will only change on state key change
+      // We use a ref inside this listener to make sure we execute the last closure provided by the user
+      // See https://github.com/react-navigation/react-navigation-hooks/issues/6#issuecomment-439713309
+      const stableListener = (...args) => {
+        currentListenerRef.current(...args);
       };
+      const subs = [
+        navigation.addListener('action', stableListener),
+        navigation.addListener('willFocus', stableListener),
+        navigation.addListener('didFocus', stableListener),
+        navigation.addListener('willBlur', stableListener),
+        navigation.addListener('didBlur', stableListener),
+      ];
+      return () => subs.forEach(sub => sub.remove());
     },
-    // For TODO consideration: If the events are tied to the navigation object and the key
-    // identifies the nav object, then we should probably pass [navigation.state.key] here, to
-    // make sure react doesn't needlessly detach and re-attach this effect. In practice this
-    // seems to cause troubles
-    undefined
-    // [navigation.state.key]
+    //[navigation.state.key]
   );
 }
 
