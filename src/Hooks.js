@@ -41,7 +41,7 @@ export function useNavigationEvents(handleEvt) {
       ];
       return () => subs.forEach(sub => sub.remove());
     },
-    //[navigation.state.key]
+    [navigation.state.key]
   );
 }
 
