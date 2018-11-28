@@ -38,7 +38,7 @@ export function useNavigationEvents(handleEvt) {
     // identifies the nav object, then we should probably pass [navigation.state.key] here, to
     // make sure react doesn't needlessly detach and re-attach this effect. In practice this
     // seems to cause troubles
-    undefined
+    undefined,
     // [navigation.state.key]
   );
 }

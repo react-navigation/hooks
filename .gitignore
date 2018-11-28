@@ -51,3 +51,7 @@ android/keystores/debug.keystore
 
 # Build
 dist/
+
+# Test
+coverage/
+.jest/
