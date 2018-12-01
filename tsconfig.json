@@ -2,16 +2,26 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "lib": ["es2017", "es7", "es6", "dom"],
+    "lib": ["es6"],
+    "jsx": "react-native",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
     "declaration": true,
+    "pretty": true,
+    "noEmitHelpers": true,
+    "importHelpers": true,
+    "strict": false,
     "outDir": "dist",
-    "strict": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["src"],
-  "exclude": [
-    "dist",
-    ".jest",
-    "node_modules"
-  ]
+  "exclude": ["dist", ".jest", "node_modules"]
 }

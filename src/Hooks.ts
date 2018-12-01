@@ -1,11 +1,23 @@
 import { useState, useContext, useEffect } from 'react';
 import { NavigationContext } from '@react-navigation/core';
+// TODO: Remove "react-navigation-types-only" when https://github.com/react-navigation/react-navigation/pull/5276
+// get merged
+import {
+  NavigationScreenProp,
+  NavigationRoute,
+  NavigationParams,
+  NavigationEventCallback,
+  NavigationEventPayload,
+  EventType,
+} from 'react-navigation-types-only';
 
-export function useNavigation() {
-  return useContext(NavigationContext);
+export function useNavigation<S>(): NavigationScreenProp<S & NavigationRoute> {
+  return useContext(NavigationContext as any);
 }
 
-export function useNavigationParam(paramName) {
+export function useNavigationParam<T extends keyof NavigationParams>(
+  paramName: T,
+) {
   return useNavigation().getParam(paramName);
 }
 
@@ -17,7 +29,7 @@ export function useNavigationKey() {
   return useNavigation().state.key;
 }
 
-export function useNavigationEvents(handleEvt) {
+export function useNavigationEvents(handleEvt: NavigationEventCallback) {
   const navigation = useNavigation();
   useEffect(
     () => {
@@ -53,9 +65,8 @@ const didFocusState = { ...emptyFocusState, isFocused: true };
 const willBlurState = { ...emptyFocusState, isBlurring: true };
 const didBlurState = { ...emptyFocusState, isBlurred: true };
 const willFocusState = { ...emptyFocusState, isFocusing: true };
-const getInitialFocusState = isFocused =>
-  isFocused ? didFocusState : didBlurState;
-function focusStateOfEvent(eventName) {
+const getInitialFocusState = (isFocused: boolean) => isFocused ? didFocusState : didBlurState;
+function focusStateOfEvent(eventName: EventType) {
   switch (eventName) {
     case 'didFocus':
       return didFocusState;
@@ -74,7 +85,7 @@ export function useFocusState() {
   const navigation = useNavigation();
   const isFocused = navigation.isFocused();
   const [focusState, setFocusState] = useState(getInitialFocusState(isFocused));
-  function handleEvt(e) {
+  function handleEvt(e: NavigationEventPayload) {
     const newState = focusStateOfEvent(e.type);
     newState && setFocusState(newState);
   }

@@ -13,7 +13,7 @@
     "object-literal-sort-keys": false,
     "arrow-parens": false,
     "no-console": [false],
-    "no-unused-expression": true,
+    "no-unused-expression": [true, "allow-fast-null-checks"],
     "comment-format": false,
     "semicolon": [false, "never", "ignore-interfaces"],
     "trailing-comma": [

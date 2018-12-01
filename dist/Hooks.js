@@ -1,16 +1,6 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = require("tslib");
 var react_1 = require("react");
 var core_1 = require("@react-navigation/core");
 function useNavigation() {
@@ -58,13 +48,11 @@ var emptyFocusState = {
     isBlurred: false,
     isFocusing: false,
 };
-var didFocusState = __assign({}, emptyFocusState, { isFocused: true });
-var willBlurState = __assign({}, emptyFocusState, { isBlurring: true });
-var didBlurState = __assign({}, emptyFocusState, { isBlurred: true });
-var willFocusState = __assign({}, emptyFocusState, { isFocusing: true });
-var getInitialFocusState = function (isFocused) {
-    return isFocused ? didFocusState : didBlurState;
-};
+var didFocusState = tslib_1.__assign({}, emptyFocusState, { isFocused: true });
+var willBlurState = tslib_1.__assign({}, emptyFocusState, { isBlurring: true });
+var didBlurState = tslib_1.__assign({}, emptyFocusState, { isBlurred: true });
+var willFocusState = tslib_1.__assign({}, emptyFocusState, { isFocusing: true });
+var getInitialFocusState = function (isFocused) { return isFocused ? didFocusState : didBlurState; };
 function focusStateOfEvent(eventName) {
     switch (eventName) {
         case 'didFocus':
