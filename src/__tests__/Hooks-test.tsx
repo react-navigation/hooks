@@ -4,8 +4,7 @@ import * as renderer from 'react-test-renderer';
 // TODO: Remove "react-navigation-types-only" when https://github.com/react-navigation/react-navigation/pull/5276
 // get merged
 // import { NavigationScreenProp } from "react-navigation-types-only";
-import { createStackNavigator } from '@react-navigation/core';
-import { createAppContainer } from '@react-navigation/native';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 import {
   useNavigation
 } from '../../';
