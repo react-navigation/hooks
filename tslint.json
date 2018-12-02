@@ -42,6 +42,7 @@
     "label-position": true,
     "max-line-length": [true, 120],
     "member-ordering": false,
+    "no-empty": false,
     "no-any": false,
     "no-arg": true,
     "no-switch-case-fall-through": true,

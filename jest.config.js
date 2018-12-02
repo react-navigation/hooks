@@ -12,6 +12,13 @@ module.exports = {
       babelConfig: true,
     },
   },
-  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+  testPathIgnorePatterns: [
+    "\\.snap$",
+    "<rootDir>/node_modules/",
+    "<rootDir>/dist/"
+  ],
+  transformIgnorePatterns: [
+    "<rootDir>/node_modules/(?!react-native)/"
+  ],
   cacheDirectory: '.jest/cache',
 };

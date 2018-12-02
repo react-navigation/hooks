@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { View, Button } from 'react-native';
 import * as renderer from 'react-test-renderer';
-// TODO: Remove "react-navigation-types-only" when https://github.com/react-navigation/react-navigation/pull/5276
-// get merged
-// import { NavigationScreenProp } from "react-navigation-types-only";
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createSwitchNavigator } from '@react-navigation/core';
+import { createAppContainer } from '@react-navigation/native';
+
 import {
   useNavigation
-} from '../../';
+} from '../../dist/Hooks';
 
 const HomeScreen = () => {
   const { navigate } = useNavigation();
@@ -16,7 +15,7 @@ const HomeScreen = () => {
 
 const DetailsScreen = () => <View />;
 
-const AppNavigator = createStackNavigator(
+const AppNavigator = createSwitchNavigator(
   {
     Home: HomeScreen,
     Details: DetailsScreen,
@@ -35,7 +34,7 @@ describe('Navigating to a new screen', () => {
     expect(tree).toMatchSnapshot();
 
     // Manually trigger onPress
-    tree!.props.onPress();
+    //tree!.props.onPress();
     tree = rendered.toJSON();
 
     expect(rendered).toMatchSnapshot();

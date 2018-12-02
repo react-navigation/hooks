@@ -3,7 +3,7 @@
     "target": "es5",
     "module": "commonjs",
     "lib": ["es6"],
-    "jsx": "react-native",
+    "jsx": "react",
     "sourceMap": true,
     "moduleResolution": "node",
     "rootDir": "src",

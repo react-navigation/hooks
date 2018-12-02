@@ -51,3 +51,5 @@ android/keystores/debug.keystore
 # Test
 coverage/
 .jest/
+**/__snapshots__/**
+

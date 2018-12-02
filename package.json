@@ -30,13 +30,9 @@
     "url": "https://github.com/react-navigation/react-navigation-hooks/issues"
   },
   "homepage": "https://github.com/react-navigation/react-navigation-hooks#readme",
-  "dependencies": {
-    "@babel/core": "^7.1.6",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.6.0"
-  },
   "devDependencies": {
     "@react-navigation/core": "^3.0.0",
+    "@react-navigation/native": "^3.0.2",
     "@types/jest": "^23.3.9",
     "@types/react": "^16.7.7",
     "@types/react-native": "^0.57.14",
@@ -49,7 +45,6 @@
     "pretty-quick": "^1.8.0",
     "react": "^16.7.0-alpha.2",
     "react-native": "^0.57.7",
-    "react-navigation": "^3.0.4",
     "react-navigation-types-only": "bySabi/react-navigation#patch-1",
     "react-test-renderer": "^16.7.0-alpha.2",
     "release-it": "^7.6.1",
