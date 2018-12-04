@@ -92,7 +92,7 @@ describe('AppNavigator1 Stack', () => {
   });
 
   it('useNavigation: Navigating to "DetailsScreen"', () => {
-    const instance = navigationContainer.getInstance() as { state?: any };
+    const instance = navigationContainer.getInstance()
     expect(instance.state.nav).toMatchObject({ index: 1 });
   });
 
