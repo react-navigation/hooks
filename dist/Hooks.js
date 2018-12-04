@@ -39,7 +39,9 @@ function useNavigationEvents(handleEvt) {
     // identifies the nav object, then we should probably pass [navigation.state.key] here, to
     // make sure react doesn't needlessly detach and re-attach this effect. In practice this
     // seems to cause troubles
-    undefined);
+    undefined
+    // [navigation.state.key]
+    );
 }
 exports.useNavigationEvents = useNavigationEvents;
 var emptyFocusState = {
@@ -52,7 +54,9 @@ var didFocusState = tslib_1.__assign({}, emptyFocusState, { isFocused: true });
 var willBlurState = tslib_1.__assign({}, emptyFocusState, { isBlurring: true });
 var didBlurState = tslib_1.__assign({}, emptyFocusState, { isBlurred: true });
 var willFocusState = tslib_1.__assign({}, emptyFocusState, { isFocusing: true });
-var getInitialFocusState = function (isFocused) { return isFocused ? didFocusState : didBlurState; };
+var getInitialFocusState = function (isFocused) {
+    return isFocused ? didFocusState : didBlurState;
+};
 function focusStateOfEvent(eventName) {
     switch (eventName) {
         case 'didFocus':

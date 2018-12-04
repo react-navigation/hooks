@@ -4,7 +4,6 @@
 
 🏄‍♀️ Surfing the wave of React Hook hype with a few convenience hooks for `@react-navigation/core` v3. Destined to work on web, server, and React Native. Contributions welcome!
 
-
 ## Examples (web only so far)
 
 See an example web app which uses react-navigation and hooks on the client and the server:
@@ -82,9 +81,9 @@ function ReportNavigationEvents() {
     // prev state on evt.lastState
     // triggering navigation action on evt.action
 
-    setEvents(events => [...events, evt.type]);
-    // evt.type is [will/did][Focus/Blur]
+    setEvents(events => [...events, evt]);
   });
+  // evt.type is [will/did][Focus/Blur]
   return (
     <>
       {events.map(evt => (

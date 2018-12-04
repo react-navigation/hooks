@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { NavigationContext } from '@react-navigation/core';
-// TODO: Remove "react-navigation-types-only" when https://github.com/react-navigation/react-navigation/pull/5276
+// TODO: move to "react-navigation" when https://github.com/react-navigation/react-navigation/pull/5276
 // get merged
 import {
   NavigationScreenProp,
@@ -16,7 +16,7 @@ export function useNavigation<S>(): NavigationScreenProp<S & NavigationRoute> {
 }
 
 export function useNavigationParam<T extends keyof NavigationParams>(
-  paramName: T,
+  paramName: T
 ) {
   return useNavigation().getParam(paramName);
 }
@@ -50,7 +50,7 @@ export function useNavigationEvents(handleEvt: NavigationEventCallback) {
     // identifies the nav object, then we should probably pass [navigation.state.key] here, to
     // make sure react doesn't needlessly detach and re-attach this effect. In practice this
     // seems to cause troubles
-    undefined,
+    undefined
     // [navigation.state.key]
   );
 }
@@ -65,7 +65,8 @@ const didFocusState = { ...emptyFocusState, isFocused: true };
 const willBlurState = { ...emptyFocusState, isBlurring: true };
 const didBlurState = { ...emptyFocusState, isBlurred: true };
 const willFocusState = { ...emptyFocusState, isFocusing: true };
-const getInitialFocusState = (isFocused: boolean) => isFocused ? didFocusState : didBlurState;
+const getInitialFocusState = (isFocused: boolean) =>
+  isFocused ? didFocusState : didBlurState;
 function focusStateOfEvent(eventName: EventType) {
   switch (eventName) {
     case 'didFocus':
