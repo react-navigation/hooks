@@ -86,7 +86,7 @@ const AppNavigator2 = createSwitchNavigator(
 
 describe('AppNavigator1 Stack', () => {
   const App = createAppContainer(AppNavigator1);
-  let navigationContainer;
+  let navigationContainer: any;
   beforeEach(() => {
     navigationContainer = renderer.create(<App />);
   });
@@ -108,7 +108,7 @@ describe('AppNavigator1 Stack', () => {
 
 describe('AppNavigator2 Stack', () => {
   const App = createAppContainer(AppNavigator2);
-  let navigationContainer;
+  let navigationContainer: any;
   beforeEach(() => {
     navigationContainer = renderer.create(<App />);
   });
