@@ -7,7 +7,6 @@
 
 # VSCode
 .vscode/
-tsconfig.json
 jsconfig.json
 
 # Xcode
@@ -49,5 +48,11 @@ buck-out/
 android/app/libs
 android/keystores/debug.keystore
 
+# Test
+coverage/
+.jest/
+**/__snapshots__/**
+
 # Build
 dist/
+

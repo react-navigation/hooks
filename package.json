@@ -3,21 +3,19 @@
   "version": "1.0.0-alpha.2",
   "description": "React hooks for convenient react-navigation use",
   "main": "dist/Hooks.js",
+  "types": "dist/Hooks.d.ts",
   "files": [
     "dist/",
-    "src/",
-    "lib/",
     "LICENSE.md",
     "README.md"
   ],
-  "react-native": "src/Hooks.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint .",
-    "format": "eslint . --fix",
-    "build": "babel --no-babelrc --plugins=transform-es2015-modules-commonjs,transform-react-jsx,transform-class-properties,transform-object-rest-spread,transform-flow-strip-types src --copy-files --out-dir dist --ignore '**/__tests__/**'",
+    "lint": "tslint --project tsconfig.json",
+    "build": "tsc --project tsconfig-build.json",
     "prepare": "yarn build",
-    "release": "release-it"
+    "release": "release-it",
+    "precommit": "lint-staged"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,53 +30,40 @@
     "url": "https://github.com/react-navigation/react-navigation-hooks/issues"
   },
   "homepage": "https://github.com/react-navigation/react-navigation-hooks#readme",
-  "dependencies": {},
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-jest": "^22.4.1",
-    "babel-plugin-transform-class-properties": "^6.13.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "babel-plugin-transform-object-rest-spread": "^6.13.0",
-    "babel-plugin-transform-react-jsx": "^6.18.0",
-    "babel-preset-react-native": "^4.0.0",
+    "@react-navigation/core": "^3.0.0",
+    "@react-navigation/native": "^3.0.2",
+    "@types/jest": "^23.3.9",
+    "@types/react": "^16.7.7",
+    "@types/react-native": "^0.57.14",
+    "@types/react-test-renderer": "^16.0.3",
     "conventional-changelog-cli": "^2.0.5",
-    "eslint": "^4.12.1",
-    "eslint-config-satya164": "^1.0.1",
-    "eslint-plugin-react-native-globals": "^0.1.0",
     "husky": "^0.14.3",
-    "jest": "^22.1.3",
-    "jest-expo": "^30.0.0",
+    "jest": "^23.6.0",
+    "lint-staged": "^8.1.0",
     "prettier": "^1.8.2",
-    "react": "16.7.0-alpha.0",
-    "react-dom": "16.7.0-alpha.0",
-    "react-native": "^0.55.4",
-    "react-test-renderer": "16.7.0-alpha.0",
-    "release-it": "^7.6.1"
+    "pretty-quick": "^1.8.0",
+    "react": "^16.7.0-alpha.2",
+    "react-native": "^0.57.7",
+    "react-navigation-types-only": "bySabi/react-navigation#patch-1",
+    "react-test-renderer": "^16.7.0-alpha.2",
+    "release-it": "^7.6.1",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.16.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.1.6"
   },
   "peerDependencies": {
-    "react": "^16.7.0-alpha.0",
-    "react-dom": "^16.7.0-alpha.0",
-    "@react-navigation/core": "^3.0.0-alpha.17"
+    "@react-navigation/core": "^3.0.0",
+    "react": "^16.7.0-alpha.2",
+    "react-native": "*"
   },
-  "jest": {
-    "preset": "react-native",
-    "testRegex": "/__tests__/[^/]+-test\\.js$",
-    "setupFiles": [
-      "<rootDir>/jest-setup.js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "jest-setup.js"
-    ],
-    "modulePathIgnorePatterns": [
-      "<rootDir>/example/"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-navigation/core)"
+  "lint-staged": {
+    "{src}/**/*.ts*": [
+      "prettier --write",
+      "git add"
     ]
-  },
-  "prettier": {
-    "trailingComma": "es5",
-    "singleQuote": true
   }
 }
