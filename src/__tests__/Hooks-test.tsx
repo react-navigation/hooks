@@ -1,14 +1,11 @@
 import { default as React, useState } from 'react';
 import * as renderer from 'react-test-renderer';
+import { createAppContainer } from '@react-navigation/native';
 import {
   createSwitchNavigator,
   NavigationActions,
+  NavigationEventPayload
 } from '@react-navigation/core';
-import { createAppContainer } from '@react-navigation/native';
-// TODO: move to "react-navigation" when https://github.com/react-navigation/react-navigation/pull/5276
-// get merged
-import { NavigationEventPayload } from 'react-navigation-types-only';
-
 import {
   useNavigation,
   useNavigationParam,
@@ -16,11 +13,12 @@ import {
   useNavigationKey,
   useNavigationEvents,
   useFocusState,
-} from '../../dist/Hooks';
+} from '../Hooks';
 
 const HomeScreen = () => {
   const { navigate } = useNavigation();
-  return navigate('Details', { from: 'Home' });
+  navigate('Details', { from: 'Home' });
+  return null;
 };
 
 const DetailsScreen = () => {
@@ -40,7 +38,7 @@ const KeyScreen = () => {
 
 const EventScreen = () => {
   const [events, setEvents] = useState([] as NavigationEventPayload[]);
-  useNavigationEvents((evt) => {
+  useNavigationEvents(evt => {
     // latest state on evt.state
     // prev state on evt.lastState
     // triggering navigation action on evt.action
@@ -86,17 +84,17 @@ const AppNavigator2 = createSwitchNavigator(
 
 describe('AppNavigator1 Stack', () => {
   const App = createAppContainer(AppNavigator1);
-  let navigationContainer: any;
+  let navigationContainer;
   beforeEach(() => {
     navigationContainer = renderer.create(<App />);
   });
 
-  it('useNavigation: Navigating to "DetailsScreen"', () => {
+  test('useNavigation: Navigating to "DetailsScreen"', () => {
     const instance = navigationContainer.getInstance()
     expect(instance.state.nav).toMatchObject({ index: 1 });
   });
 
-  it('useNavigationParam: Get passed parameter', () => {
+  test('useNavigationParam: Get passed parameter', () => {
     const children = navigationContainer.toJSON().children;
     expect(children).toContain('Home');
   });
@@ -108,34 +106,35 @@ describe('AppNavigator1 Stack', () => {
 
 describe('AppNavigator2 Stack', () => {
   const App = createAppContainer(AppNavigator2);
-  let navigationContainer: any;
+  let navigationContainer;
   beforeEach(() => {
     navigationContainer = renderer.create(<App />);
   });
 
   const eventTypes = ['willFocus', 'didFocus', 'willBlur', 'didBlur', 'action'];
 
-  it('usenNavigationState: Get current route name', () => {
+  test('usenNavigationState: Get current route name', () => {
     const children = navigationContainer.toJSON().children;
     expect(children).toContain('Other');
   });
 
-  it('usenNavigationKey: Get current key name', () => {
+  test('usenNavigationKey: Get current key name', () => {
     const instance = navigationContainer.getInstance();
     instance.dispatch(NavigationActions.navigate({ routeName: 'Key' }));
     const children = navigationContainer.toJSON().children;
     expect(children).toContain('Key');
   });
 
-  it('useNavigationEvents: Get current subscribed events', () => {
+  test('useNavigationEvents: Get current subscribed events', () => {
     const instance = navigationContainer.getInstance();
     instance.dispatch(NavigationActions.navigate({ routeName: 'Event' }));
     const elems = navigationContainer.toJSON();
+    //navigationContainer.update();
     expect(eventTypes).toContain(elems[0].children.toString());
     expect(eventTypes).toContain(elems[1].children.toString());
   });
 
-  it('useFocusState: Get focus state', () => {
+  test('useFocusState: Get focus state', () => {
     const instance = navigationContainer.getInstance();
     instance.dispatch(NavigationActions.navigate({ routeName: 'Focus' }));
     const children = navigationContainer.toJSON().children;

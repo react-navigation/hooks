@@ -8,10 +8,14 @@ module.exports = {
     '\\.js$': '<rootDir>/node_modules/react-native/jest/preprocessor.js',
   },
   globals: {
-    'ts-jest': {
+    "ts-jest": {
       babelConfig: true,
+      tsConfig: "./tsconfig.test.json"
     },
   },
+  testMatch: [
+    "**/__tests__/**/*-test.ts?(x)"
+  ],
   testPathIgnorePatterns: [
     "\\.snap$",
     "<rootDir>/node_modules/",

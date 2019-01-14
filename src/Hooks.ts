@@ -1,17 +1,20 @@
 import { useState, useContext, useEffect } from 'react';
-import { NavigationContext } from '@react-navigation/core';
-// TODO: move to "react-navigation" when https://github.com/react-navigation/react-navigation/pull/5276
-// get merged
 import {
-  NavigationScreenProp,
-  NavigationRoute,
+  NavigationContext,
+  NavigationScreenPropChild,
   NavigationParams,
   NavigationEventCallback,
   NavigationEventPayload,
-  EventType,
-} from 'react-navigation-types-only';
+  NavigationEventType,
+  NavigationStateRoute
+} from '@react-navigation/core';
 
-export function useNavigation<S>(): NavigationScreenProp<S & NavigationRoute> {
+export type NavigationEventFocusStateType =
+  'isFocused' | 'isBlurring' | 'isBlurred' | 'isFocusing';
+
+export type NavigationEventFocusState = typeof emptyFocusState;
+
+export function useNavigation(): NavigationScreenPropChild<NavigationStateRoute> {
   return useContext(NavigationContext as any);
 }
 
@@ -55,19 +58,24 @@ export function useNavigationEvents(handleEvt: NavigationEventCallback) {
   );
 }
 
-const emptyFocusState = {
+const emptyFocusState: { [K in NavigationEventFocusStateType]: boolean } = {
   isFocused: false,
   isBlurring: false,
   isBlurred: false,
   isFocusing: false,
 };
-const didFocusState = { ...emptyFocusState, isFocused: true };
-const willBlurState = { ...emptyFocusState, isBlurring: true };
-const didBlurState = { ...emptyFocusState, isBlurred: true };
-const willFocusState = { ...emptyFocusState, isFocusing: true };
-const getInitialFocusState = (isFocused: boolean) =>
+
+type FocusState = NavigationEventFocusState;
+
+const didFocusState: FocusState  = { ...emptyFocusState, isFocused: true };
+const willBlurState: FocusState  = { ...emptyFocusState, isBlurring: true };
+const didBlurState:  FocusState  = { ...emptyFocusState, isBlurred: true };
+const willFocusState: FocusState = { ...emptyFocusState, isFocusing: true };
+
+const getInitialFocusState = (isFocused: boolean): FocusState =>
   isFocused ? didFocusState : didBlurState;
-function focusStateOfEvent(eventName: EventType) {
+
+function focusStateOfEvent(eventName: NavigationEventType): FocusState | null {
   switch (eventName) {
     case 'didFocus':
       return didFocusState;
@@ -82,7 +90,7 @@ function focusStateOfEvent(eventName: EventType) {
   }
 }
 
-export function useFocusState() {
+export function useFocusState(): NavigationEventFocusState {
   const navigation = useNavigation();
   const isFocused = navigation.isFocused();
   const [focusState, setFocusState] = useState(getInitialFocusState(isFocused));

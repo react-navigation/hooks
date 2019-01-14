@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
-    "lib": ["es7"],
+    "lib": ["es2018"],
     "jsx": "react",
     "sourceMap": true,
     "moduleResolution": "node",
@@ -10,7 +10,7 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
@@ -21,7 +21,17 @@
     "strict": true,
     "outDir": "dist",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "allowJs": false
   },
-  "exclude": ["dist", ".jest", "node_modules"]
+  "include": ["types", "src"],
+  "exclude": [
+    "**/__tests__",
+    "dist",
+    ".jest",
+    "node_modules",
+    "coverage",
+    "example",
+    "./jest.config.js",
+  ]
 }

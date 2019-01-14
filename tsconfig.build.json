@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "sourceMap": true
+  },
+  "exclude": [
+    "**/__tests__",
+    "dist",
+    ".jest",
+    "node_modules",
+    "coverage",
+    "example",
+    "jest.config.js"
+  ]
+}

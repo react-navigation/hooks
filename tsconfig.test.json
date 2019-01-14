@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "sourceMap": false
+  },
+  "include": [
+    "types",
+    "**/__tests__/"
+  ]
+}
