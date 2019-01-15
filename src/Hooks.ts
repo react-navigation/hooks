@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import {
   NavigationContext,
-  NavigationScreenPropChild,
+  NavigationScreenProp,
   NavigationParams,
   NavigationEventCallback,
   NavigationEventPayload,
@@ -14,7 +14,7 @@ export type NavigationEventFocusStateType =
 
 export type NavigationEventFocusState = typeof emptyFocusState;
 
-export function useNavigation(): NavigationScreenPropChild<NavigationStateRoute> {
+export function useNavigation(): NavigationScreenProp<NavigationStateRoute> {
   return useContext(NavigationContext as any);
 }
 
