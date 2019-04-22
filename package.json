@@ -3,7 +3,7 @@
   "version": "1.0.0-alpha.2",
   "description": "React hooks for convenient react-navigation use",
   "main": "dist/Hooks.js",
-  "types": "dist/Hooks.d.ts",
+  "typings": "dist/Hooks.d.ts",
   "files": [
     "dist/",
     "src/",
