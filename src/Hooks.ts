@@ -16,9 +16,14 @@ export function useNavigation<S>(): NavigationScreenProp<S & NavigationRoute> {
 }
 
 export function useNavigationParam<T extends keyof NavigationParams>(
-  paramName: T
+  paramName: T,
+  fallbackValue?
 ) {
-  return useNavigation().getParam(paramName);
+  const {getParam, setParams} = useNavigation()
+  return [
+    getParam(paramName, fallbackValue),
+    (newValue: NonNullable<NavigationParams[T]>) => setParams({ [paramName]: newValue }),
+  ]
 }
 
 export function useNavigationState() {
