@@ -19,7 +19,7 @@ export function useNavigationParam<T extends keyof NavigationParams>(
   paramName: T,
   fallbackValue?
 ) {
-  const {getParam, setParams} = useNavigation()
+  const { getParam, setParams } = useNavigation()
   return [
     getParam(paramName, fallbackValue),
     (newValue: NonNullable<NavigationParams[T]>) => setParams({ [paramName]: newValue }),

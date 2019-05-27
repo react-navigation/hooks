@@ -1,4 +1,4 @@
-import { default as React, useState } from 'react';
+import { default as React, useState, useEffect } from 'react';
 import * as renderer from 'react-test-renderer';
 import {
   createSwitchNavigator,
@@ -24,13 +24,21 @@ const HomeScreen = () => {
 };
 
 const DetailsScreen = () => {
-  const from = useNavigationParam('from');
+  const [from] = useNavigationParam('from');
   return <p>{from}</p>;
 };
 
 const OtherScreen = () => {
   const { routeName } = useNavigationState();
   return <p>{routeName}</p>;
+};
+
+const ParamScreen = () => {
+  const [param, setParam] = useNavigationParam('param', 'fallback');
+  useEffect(() => {
+    setParam('Value')
+  }, []);
+  return <p>{param}</p>;
 };
 
 const KeyScreen = () => {
@@ -66,6 +74,7 @@ const AppNavigator1 = createSwitchNavigator(
     Home: HomeScreen, // { nav: { "index": 0 ...
     Details: DetailsScreen, // { nav: { "index": 1 ...
     Other: OtherScreen, // { nav: { "index": 2 ...
+    Param: ParamScreen, // { nav: { "index": 3 ...
   },
   {
     initialRouteName: 'Home',
@@ -99,6 +108,13 @@ describe('AppNavigator1 Stack', () => {
   it('useNavigationParam: Get passed parameter', () => {
     const children = navigationContainer.toJSON().children;
     expect(children).toContain('Home');
+  });
+
+  it('useNavigationParam: Set parameter', () => {
+    const instance = navigationContainer.getInstance();
+    instance.dispatch(NavigationActions.navigate({ routeName: 'Param' }));
+    const children = navigationContainer.toJSON().children;
+    expect(children).toContain('Value');
   });
 
   afterEach(() => {
