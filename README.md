@@ -37,18 +37,23 @@ function MyLinkButton() {
 }
 ```
 
-### useNavigationParam(paramName)
+### useNavigationParam(paramName, fallbackValue)
 
 Access a param for the current navigation state
 
 ```js
 function MyScreen() {
-  const name = useNavigationParam('name');
+  const [name, setName] = useNavigationParam('name', 'fallbackName');
+  useEffect(() => {
+    setName('Name')
+  }, []);
+
   return <p>name is {name}</p>;
 }
 ```
 
-Literally the same as `useNavigation().getParam(paramName)`
+Similar to `useState` this function returns a pair of values: the current navigation param and a function that updates it.
+It takes two arguments, the name of the param and an optional fallback value, if the navigation param is undefined.
 
 ### useNavigationState()
 
