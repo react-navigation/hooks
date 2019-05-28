@@ -10,13 +10,6 @@ See an example web app which uses react-navigation and hooks on the client and t
 
 https://github.com/react-navigation/web-server-example
 
-## Breaking Changes
-
-- `useNavigationParam()` returns an array of the navigation param and a function to update the param instead of of only the navigation param.
-
-As long as this project is in `alpha`, there can be further breaking changes.
-
-
 ## Docs
 
 `yarn add react-navigation-hooks`
