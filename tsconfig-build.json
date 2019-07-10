@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig",
   "compilerOptions": {
+    "declaration": true,
     "sourceMap": false
   },
   "exclude": ["**/__tests__", "dist", ".jest", "node_modules"]
