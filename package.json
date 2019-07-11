@@ -1,6 +1,6 @@
 {
   "name": "react-navigation-hooks",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha.0",
   "description": "React hooks for convenient react-navigation use",
   "main": "dist/Hooks.js",
   "types": "dist/Hooks.d.ts",
@@ -15,7 +15,7 @@
     "lint": "tslint --project tsconfig.json",
     "build": "tsc --project tsconfig-build.json",
     "prepare": "yarn build",
-    "release": "release-it --preRelease=alpha",
+    "release": "release-it --preRelease",
     "precommit": "lint-staged"
   },
   "publishConfig": {
