@@ -15,7 +15,7 @@
     "lint": "tslint --project tsconfig.json",
     "build": "tsc --project tsconfig-build.json",
     "prepare": "yarn build",
-    "release": "release-it",
+    "release": "release-it --preRelease=alpha",
     "precommit": "lint-staged"
   },
   "publishConfig": {
