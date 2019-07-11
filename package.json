@@ -1,6 +1,6 @@
 {
   "name": "react-navigation-hooks",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "React hooks for convenient react-navigation use",
   "main": "dist/Hooks.js",
   "types": "dist/Hooks.d.ts",
