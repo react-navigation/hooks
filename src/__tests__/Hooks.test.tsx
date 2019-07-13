@@ -120,7 +120,7 @@ describe('AppNavigator2 Stack', () => {
     'didFocus',
     'willBlur',
     'didBlur',
-    // 'action'
+    'action'
   ];
 
   it('usenNavigationState: Get current route name', () => {
