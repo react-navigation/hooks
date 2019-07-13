@@ -1,6 +1,6 @@
 {
   "name": "react-navigation-hooks",
-  "versin": "1.0.2",
+  "versin": "1.1.0",
   "description": "React hooks for convenient react-navigation use",
   "main": "dist/commonjs/Hooks.js",
   "module": "dist/module/Hooks.js",
@@ -84,5 +84,5 @@
       "git add"
     ]
   },
-  "version": "1.0.2"
+  "version": "1.0.2-alpha.0"
 }
