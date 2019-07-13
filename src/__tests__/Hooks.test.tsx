@@ -28,7 +28,7 @@ const HomeScreen = () => {
 };
 
 const DetailsScreen = () => {
-  const from = useNavigationParam('from');
+  const from = useNavigationParam<DetailsScreenParams>('from');
   return <p>{from}</p>;
 };
 
