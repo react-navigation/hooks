@@ -1,9 +1,11 @@
 {
   "name": "react-navigation-hooks",
-  "version": "1.0.1",
+  "versin": "1.0.1",
   "description": "React hooks for convenient react-navigation use",
-  "main": "dist/Hooks.js",
-  "types": "dist/Hooks.d.ts",
+  "main": "dist/commonjs/Hooks.js",
+  "module": "dist/module/Hooks.js",
+  "react-native": "dist/module/Hooks.js",
+  "types": "dist/typescript/Hooks.d.ts",
   "files": [
     "dist/",
     "src/",
@@ -14,7 +16,7 @@
     "test": "jest",
     "lint": "tslint --project tsconfig.json",
     "build": "tsc --project tsconfig-build.json",
-    "prepare": "yarn build",
+    "prepare": "bob build",
     "release": "release-it",
     "precommit": "lint-staged"
   },
@@ -31,12 +33,28 @@
     "url": "https://github.com/react-navigation/react-navigation-hooks/issues"
   },
   "homepage": "https://github.com/react-navigation/react-navigation-hooks#readme",
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "dist",
+    "targets": [
+      [
+        "commonjs",
+        {
+          "flow": true
+        }
+      ],
+      "module",
+      "typescript"
+    ]
+  },
   "devDependencies": {
+    "@react-native-community/bob": "^0.6.1",
     "@react-navigation/core": "^3.0.0",
     "@react-navigation/native": "^3.0.2",
     "@types/jest": "^23.3.9",
     "@types/react": "^16.7.7",
     "@types/react-native": "^0.57.14",
+    "@types/react-navigation": "^3.0.7",
     "@types/react-test-renderer": "^16.0.3",
     "conventional-changelog-cli": "^2.0.5",
     "husky": "^0.14.3",
@@ -46,7 +64,6 @@
     "pretty-quick": "^1.8.0",
     "react": "^16.7.0-alpha.2",
     "react-native": "^0.57.7",
-    "react-navigation-types-only": "bySabi/react-navigation#patch-1",
     "react-test-renderer": "^16.7.0-alpha.2",
     "release-it": "^7.6.1",
     "ts-jest": "^23.10.5",
@@ -58,7 +75,7 @@
   },
   "peerDependencies": {
     "@react-navigation/core": "^3.0.0",
-    "react": "^16.7.0-alpha.2",
+    "react": "^16.8.0",
     "react-native": "*"
   },
   "lint-staged": {

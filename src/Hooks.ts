@@ -1,15 +1,14 @@
 import { useState, useContext, useEffect } from 'react';
-import { NavigationContext } from '@react-navigation/core';
-// TODO: move to "react-navigation" when https://github.com/react-navigation/react-navigation/pull/5276
-// get merged
+
 import {
+  NavigationContext,
   NavigationScreenProp,
   NavigationRoute,
   NavigationParams,
   NavigationEventCallback,
   NavigationEventPayload,
   EventType,
-} from 'react-navigation-types-only';
+} from 'react-navigation';
 
 export function useNavigation<S>(): NavigationScreenProp<S & NavigationRoute> {
   return useContext(NavigationContext as any);

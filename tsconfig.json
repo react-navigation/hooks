@@ -1,27 +1,30 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "lib": ["es7"],
-    "jsx": "react",
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "rootDir": "src",
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "alwaysStrict": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "lib": ["esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noImplicitAny": false,
-    "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
+    "noImplicitUseStrict": false,
+    "noStrictGenericChecks": false,
     "noUnusedLocals": true,
-    "declaration": true,
-    "pretty": true,
-    "noEmitHelpers": true,
-    "importHelpers": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
     "strict": true,
-    "outDir": "dist",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "target": "esnext",
+    "plugins": [{ "name": "typescript-tslint-plugin" }]
   },
-  "exclude": ["dist", ".jest", "node_modules"]
+  "typeAcquisition": {
+    "enable": true,
+    "include": ["react", "react-native"]
+  }
 }
