@@ -1,4 +1,5 @@
-import { default as React, useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import * as renderer from 'react-test-renderer';
 // @ts-ignore
 import { createSwitchNavigator } from '@react-navigation/core';
@@ -114,7 +115,13 @@ describe('AppNavigator2 Stack', () => {
     navigationContainer = renderer.create(<App />);
   });
 
-  const eventTypes = ['willFocus', 'didFocus', 'willBlur', 'didBlur', 'action'];
+  const eventTypes = [
+    'willFocus',
+    'didFocus',
+    'willBlur',
+    'didBlur',
+    // 'action'
+  ];
 
   it('usenNavigationState: Get current route name', () => {
     const children = navigationContainer.toJSON().children;
