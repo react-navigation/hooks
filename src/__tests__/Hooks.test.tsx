@@ -44,7 +44,7 @@ const KeyScreen = () => {
 
 const EventScreen = () => {
   const [events, setEvents] = useState([] as NavigationEventPayload[]);
-  useNavigationEvents((evt: any) => {
+  useNavigationEvents(evt => {
     // latest state on evt.state
     // prev state on evt.lastState
     // triggering navigation action on evt.action
