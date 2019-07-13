@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
+import { default as React, useState } from 'react';
 import * as renderer from 'react-test-renderer';
 
 import {
@@ -18,7 +17,9 @@ import {
   useFocusState,
 } from '../Hooks';
 
-type DetailsScreenParams = { from: string };
+interface DetailsScreenParams {
+  from: string;
+}
 
 const HomeScreen = () => {
   const { navigate } = useNavigation();
