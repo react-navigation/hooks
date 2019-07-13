@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { useState } from 'react';
 import * as renderer from 'react-test-renderer';
-// @ts-ignore
-import { createSwitchNavigator } from '@react-navigation/core';
 
 import {
+  createSwitchNavigator,
   createAppContainer,
   NavigationEventPayload,
   NavigationActions,
@@ -17,12 +16,14 @@ import {
   useNavigationKey,
   useNavigationEvents,
   useFocusState,
-  // @ts-ignore
-} from '../../dist/module/Hooks';
+} from '../Hooks';
+
+type DetailsScreenParams = { from: string };
 
 const HomeScreen = () => {
   const { navigate } = useNavigation();
-  return navigate('Details', { from: 'Home' });
+  const params: DetailsScreenParams = { from: 'Home' };
+  return navigate('Details', params);
 };
 
 const DetailsScreen = () => {
@@ -115,13 +116,7 @@ describe('AppNavigator2 Stack', () => {
     navigationContainer = renderer.create(<App />);
   });
 
-  const eventTypes = [
-    'willFocus',
-    'didFocus',
-    'willBlur',
-    'didBlur',
-    'action'
-  ];
+  const eventTypes = ['willFocus', 'didFocus', 'willBlur', 'didBlur', 'action'];
 
   it('usenNavigationState: Get current route name', () => {
     const children = navigationContainer.toJSON().children;
