@@ -15,8 +15,8 @@
   "scripts": {
     "test": "jest",
     "lint": "tslint --project tsconfig.json",
-    "build": "tsc --project tsconfig-build.json",
-    "prepare": "bob build",
+    "build": "bob build",
+    "prepare": "yarn build",
     "release": "release-it",
     "precommit": "lint-staged"
   },
