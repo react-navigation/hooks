@@ -37,12 +37,7 @@
     "source": "src",
     "output": "dist",
     "targets": [
-      [
-        "commonjs",
-        {
-          "flow": true
-        }
-      ],
+      "commonjs",
       "module",
       "typescript"
     ]
