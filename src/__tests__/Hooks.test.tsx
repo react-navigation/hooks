@@ -1,13 +1,12 @@
 import { default as React, useState } from 'react';
 import * as renderer from 'react-test-renderer';
+
 import {
   createSwitchNavigator,
+  createAppContainer,
+  NavigationEventPayload,
   NavigationActions,
-} from '@react-navigation/core';
-import { createAppContainer } from '@react-navigation/native';
-// TODO: move to "react-navigation" when https://github.com/react-navigation/react-navigation/pull/5276
-// get merged
-import { NavigationEventPayload } from 'react-navigation-types-only';
+} from 'react-navigation';
 
 import {
   useNavigation,
@@ -16,11 +15,16 @@ import {
   useNavigationKey,
   useNavigationEvents,
   useFocusState,
-} from '../../dist/Hooks';
+} from '../Hooks';
+
+interface DetailsScreenParams {
+  from: string;
+}
 
 const HomeScreen = () => {
   const { navigate } = useNavigation();
-  return navigate('Details', { from: 'Home' });
+  const params: DetailsScreenParams = { from: 'Home' };
+  return navigate('Details', params);
 };
 
 const DetailsScreen = () => {
@@ -40,7 +44,7 @@ const KeyScreen = () => {
 
 const EventScreen = () => {
   const [events, setEvents] = useState([] as NavigationEventPayload[]);
-  useNavigationEvents((evt) => {
+  useNavigationEvents(evt => {
     // latest state on evt.state
     // prev state on evt.lastState
     // triggering navigation action on evt.action
@@ -92,7 +96,7 @@ describe('AppNavigator1 Stack', () => {
   });
 
   it('useNavigation: Navigating to "DetailsScreen"', () => {
-    const instance = navigationContainer.getInstance()
+    const instance = navigationContainer.getInstance();
     expect(instance.state.nav).toMatchObject({ index: 1 });
   });
 

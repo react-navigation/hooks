@@ -1,15 +1,14 @@
 import { useState, useContext, useEffect } from 'react';
-import { NavigationContext } from '@react-navigation/core';
-// TODO: move to "react-navigation" when https://github.com/react-navigation/react-navigation/pull/5276
-// get merged
+
 import {
+  NavigationContext,
   NavigationScreenProp,
   NavigationRoute,
   NavigationParams,
   NavigationEventCallback,
   NavigationEventPayload,
   EventType,
-} from 'react-navigation-types-only';
+} from 'react-navigation';
 
 export function useNavigation<S>(): NavigationScreenProp<S & NavigationRoute> {
   return useContext(NavigationContext as any);
@@ -33,7 +32,9 @@ export function useNavigationEvents(handleEvt: NavigationEventCallback) {
   const navigation = useNavigation();
   useEffect(
     () => {
-      const subsA = navigation.addListener('action', handleEvt);
+      const subsA = navigation.addListener(
+        'action' as any // TODO should we remove it? it's not in the published typedefs
+        , handleEvt);
       const subsWF = navigation.addListener('willFocus', handleEvt);
       const subsDF = navigation.addListener('didFocus', handleEvt);
       const subsWB = navigation.addListener('willBlur', handleEvt);
