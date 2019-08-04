@@ -18,7 +18,8 @@
     "build": "bob build",
     "prepare": "yarn build",
     "release": "release-it",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "bootstrap": "yarn && yarn --cwd example"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
