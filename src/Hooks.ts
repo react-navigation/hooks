@@ -32,6 +32,10 @@ export function useNavigationEvents(handleEvt: NavigationEventCallback) {
   const navigation = useNavigation();
   useEffect(
     () => {
+      if (!navigation) {
+        return
+      }
+      
       const subsA = navigation.addListener(
         'action' as any // TODO should we remove it? it's not in the published typedefs
         , handleEvt);
