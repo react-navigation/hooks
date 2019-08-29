@@ -59,7 +59,8 @@ export function useNavigationEvents(callback: NavigationEventCallback) {
   const getLatestCallback = useGetter(callback);
 
   // It's important to useLayoutEffect because we want to ensure we subscribe synchronously to the mounting
-  // of the component, similarly to what would happen if we did use componentDidMount (that we use in <NavigationEvents/>)
+  // of the component, similarly to what would happen if we did use componentDidMount
+  // (that we use in <NavigationEvents/>)
   // When mounting/focusing a new screen and subscribing to focus, the focus event should be fired
   // It wouldn't fire if we did subscribe with useEffect()
   useLayoutEffect(() => {
@@ -82,12 +83,12 @@ export function useNavigationEvents(callback: NavigationEventCallback) {
   }, [navigation.state.key]);
 }
 
-export type FocusState = {
+export interface FocusState {
   isFocused: boolean;
   isBlurring: boolean;
   isBlurred: boolean;
   isFocusing: boolean;
-};
+}
 
 const emptyFocusState: FocusState = {
   isFocused: false,
