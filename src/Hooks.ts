@@ -63,9 +63,9 @@ export function useNavigationEvents(callback: NavigationEventCallback) {
   // When mounting/focusing a new screen and subscribing to focus, the focus event should be fired
   // It wouldn't fire if we did subscribe with useEffect()
   useLayoutEffect(() => {
-    const subscribedCallback: NavigationEventCallback = evt => {
-      const latestEventHandler = getLatestCallback();
-      latestEventHandler(evt);
+    const subscribedCallback: NavigationEventCallback = event => {
+      const latestCallback = getLatestCallback();
+      latestCallback(event);
     };
 
     const subs = [
