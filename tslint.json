@@ -8,7 +8,7 @@
   "defaultSeverity": "error",
   "jsRules": {},
   "rules": {
-    "quotemark": [true, "single", "jsx-double"],
+    "quotemark": [false],
     "ordered-imports": false,
     "object-literal-sort-keys": false,
     "arrow-parens": [true, "ban-single-arg-parens"],
