@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useCallback } from 'react';
 import { NavigationContext } from '@react-navigation/core';
 // TODO: move to "react-navigation" when https://github.com/react-navigation/react-navigation/pull/5276
 // get merged
@@ -19,11 +19,18 @@ export function useNavigationParam<T extends keyof NavigationParams>(
   paramName: T,
   fallbackValue?: NavigationParams[T]
 ) {
-  const { getParam, setParams } = useNavigation()
+  const { getParam, setParams } = useNavigation();
+  const setParamValue = useCallback(
+    () => {
+      return (newValue: NavigationParams[T]) =>
+        setParams({ [paramName]: newValue });
+    },
+    [setParams]
+  );
   return [
     fallbackValue ? getParam(paramName, fallbackValue) : getParam(paramName),
-    (newValue: NavigationParams[T]) => setParams({ [paramName]: newValue }),
-  ]
+    setParamValue(),
+  ];
 }
 
 export function useNavigationState() {
