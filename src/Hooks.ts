@@ -146,7 +146,6 @@ export function useFocusState() {
   return focusState;
 }
 
-
 type EffectCallback = (() => void) | (() => () => void);
 
 // Inspired by same hook from react-navigation v5
