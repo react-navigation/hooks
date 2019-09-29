@@ -1,4 +1,5 @@
 # React Navigation Hooks
+
 [![npm version](https://badge.fury.io/js/react-navigation-hooks.svg)](https://badge.fury.io/js/react-navigation-hooks) [![npm downloads](https://img.shields.io/npm/dm/react-navigation-hooks.svg)](https://www.npmjs.com/package/react-navigation-hooks) [![CircleCI badge](https://circleci.com/gh/react-navigation/hooks/tree/master.svg?style=shield)](https://circleci.com/gh/react-navigation/hooks/tree/master) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactnavigation.org/docs/contributing.html)
 
 🏄‍♀️ Surfing the wave of React Hook hype with a few convenience hooks for `@react-navigation/core` v3. Destined to work on web, server, and React Native. Contributions welcome!
@@ -95,13 +96,80 @@ function ReportNavigationEvents() {
 
 The event payload will be the same as provided by `addListener`, as documented here: https://reactnavigation.org/docs/en/navigation-prop.html#addlistener-subscribe-to-updates-to-navigation-lifecycle
 
+### useIsFocused()
+
+Convenient way to know if the screen currently has focus.
+
+```js
+function MyScreen() {
+  const isFocused = useIsFocused();
+  return <Text>{isFocused ? 'Focused' : 'Not Focused'}</Text>;
+}
+```
+
+### useFocusEffect(callback)
+
+Permit to execute an effect when the screen takes focus, and cleanup the effect when the screen loses focus.
+
+```js
+function MyScreen() {
+  useFocusEffect(useCallback(() => {
+    console.debug("screen takes focus");
+    return () => console.debug("screen loses focus");
+  }));
+  return <View>...</View>;
+}
+```
+
+**NOTE**: To avoid the running the effect too often, it's important to wrap the callback in useCallback before passing it to `useFocusEffect` as shown in the example. The effect will re-execute everytime the callback changes if the screen is focused.
+
+`useFocusEffect` can be helpful to refetch some screen data on params changes:
+
+```js
+function Profile({ userId }) {
+  const [user, setUser] = React.useState(null);
+
+  const fetchUser = React.useCallback(() => {
+    const request = API.fetchUser(userId).then(
+      data => setUser(data),
+      error => alert(error.message)
+    );
+
+    return () => request.abort();
+  }, [userId]);
+
+  useFocusEffect(fetchUser);
+
+  return <ProfileContent user={user} />;
+}
+```
+
+
+`useFocusEffect` can be helpful to handle hardware back behavior on currently focused screen:
+
+```js 
+const useBackHandler = (backHandler: () => boolean) => {
+  useFocusEffect(() => {
+    const subscription = BackHandler.addEventListener('hardwareBackPress', backHandler);
+    return () => subscription.remove();
+  });
+};
+```
+
+
+
+
 ### useFocusState()
+
+**deprecated**: this hook does not exist in v5, you should rather use `useIsFocused`
+
 
 Convenient way of subscribing to events and observing focus state of the current screen.
 
 ```js
-function MyFocusTag() {
-  return <p>{useFocusState().isFocused ? 'Focused' : 'Not Focused'}</p>;
+function MyScreen() {
+  const focusState = useFocusState();
+  return <Text>{focusState.isFocused ? 'Focused' : 'Not Focused'}</Text>;
 }
 ```
 
@@ -111,3 +179,4 @@ One (always, and only one) of the following values will be true in the focus sta
 - isBlurring
 - isBlurred
 - isFocusing
+
