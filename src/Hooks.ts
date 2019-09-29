@@ -16,7 +16,6 @@ import {
   NavigationEventPayload,
   EventType,
 } from 'react-navigation';
-import { BackHandler } from 'react-native';
 
 export function useNavigation<S>(): NavigationScreenProp<S & NavigationRoute> {
   const navigation = useContext(NavigationContext) as any; // TODO typing?
@@ -152,14 +151,13 @@ type EffectCallback = (() => void) | (() => () => void);
 // See https://github.com/react-navigation/hooks/issues/39#issuecomment-534694135
 export const useFocusEffect = (callback: EffectCallback) => {
   const navigation = useNavigation();
-  const getCallback = useGetter(callback);
 
   useEffect(() => {
     let isFocused = false;
     let cleanup: (() => void) | void;
 
     if (navigation.isFocused()) {
-      cleanup = getCallback()();
+      cleanup = callback();
       isFocused = true;
     }
 
@@ -171,7 +169,7 @@ export const useFocusEffect = (callback: EffectCallback) => {
       }
 
       cleanup && cleanup();
-      cleanup = getCallback()();
+      cleanup = callback();
       isFocused = true;
     });
 
@@ -186,34 +184,27 @@ export const useFocusEffect = (callback: EffectCallback) => {
       focusSubscription.remove();
       blurSubscription.remove();
     };
-  }, [getCallback, navigation]);
+  }, [callback, navigation]);
 };
 
 export const useIsFocused = () => {
   const navigation = useNavigation();
+  const getNavigation = useGetter(useNavigation());
   const [focused, setFocused] = useState(navigation.isFocused());
 
   useEffect(() => {
-    const focusSubscription = navigation.addListener('willFocus', () =>
-      setFocused(true),
+    const nav = getNavigation();
+    const focusSubscription = nav.addListener('willFocus', () =>
+      setFocused(true)
     );
-    const blurSubscription = navigation.addListener('willBlur', () =>
-      setFocused(false),
+    const blurSubscription = nav.addListener('willBlur', () =>
+      setFocused(false)
     );
     return () => {
       focusSubscription.remove();
       blurSubscription.remove();
     };
-  }, [setFocused]);
+  }, [getNavigation]);
 
   return focused;
-};
-
-export const useBackHandler = (backHandler: () => boolean) => {
-  useFocusEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', backHandler);
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', backHandler);
-    };
-  });
 };
