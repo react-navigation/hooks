@@ -2,7 +2,9 @@
 
 [![npm version](https://badge.fury.io/js/react-navigation-hooks.svg)](https://badge.fury.io/js/react-navigation-hooks) [![npm downloads](https://img.shields.io/npm/dm/react-navigation-hooks.svg)](https://www.npmjs.com/package/react-navigation-hooks) [![CircleCI badge](https://circleci.com/gh/react-navigation/hooks/tree/master.svg?style=shield)](https://circleci.com/gh/react-navigation/hooks/tree/master) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactnavigation.org/docs/contributing.html)
 
-🏄‍♀️ Surfing the wave of React Hook hype with a few convenience hooks for `@react-navigation/core` v3. Destined to work on web, server, and React Native. Contributions welcome!
+🏄‍♀️ Surfing the wave of React Hook hype with a few convenience hooks for `@react-navigation/core` v3/v4. Destined to work on web, server, and React Native. Contributions welcome!
+
+**IMPORTANT**: [react-navigation v5](https://github.com/react-navigation/navigation-ex) is already on its way and is a full rewrite (including hooks). This project will not live past v4, and will try to make the migration path from v4 to v5 easy by not introducing any new hook that won't be in v5.
 
 ## Examples (web only so far)
 
