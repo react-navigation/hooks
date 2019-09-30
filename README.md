@@ -118,7 +118,7 @@ function MyScreen() {
   useFocusEffect(useCallback(() => {
     console.debug("screen takes focus");
     return () => console.debug("screen loses focus");
-  }));
+  }, []));
   return <View>...</View>;
 }
 ```
