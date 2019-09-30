@@ -189,7 +189,7 @@ export const useFocusEffect = (callback: EffectCallback) => {
 
 export const useIsFocused = () => {
   const navigation = useNavigation();
-  const getNavigation = useGetter(useNavigation());
+  const getNavigation = useGetter(navigation);
   const [focused, setFocused] = useState(navigation.isFocused);
 
   useEffect(() => {
