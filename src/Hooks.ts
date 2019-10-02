@@ -1,6 +1,7 @@
 import {
   useState,
   useContext,
+  useEffect,
   useLayoutEffect,
   useRef,
   useCallback,
@@ -143,3 +144,67 @@ export function useFocusState() {
 
   return focusState;
 }
+
+type EffectCallback = (() => void) | (() => () => void);
+
+// Inspired by same hook from react-navigation v5
+// See https://github.com/react-navigation/hooks/issues/39#issuecomment-534694135
+export const useFocusEffect = (callback: EffectCallback) => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    let isFocused = false;
+    let cleanup: (() => void) | void;
+
+    if (navigation.isFocused()) {
+      cleanup = callback();
+      isFocused = true;
+    }
+
+    const focusSubscription = navigation.addListener('willFocus', () => {
+      // If callback was already called for focus, avoid calling it again
+      // The focus event may also fire on intial render, so we guard against runing the effect twice
+      if (isFocused) {
+        return;
+      }
+
+      cleanup && cleanup();
+      cleanup = callback();
+      isFocused = true;
+    });
+
+    const blurSubscription = navigation.addListener('willBlur', () => {
+      cleanup && cleanup();
+      cleanup = undefined;
+      isFocused = false;
+    });
+
+    return () => {
+      cleanup && cleanup();
+      focusSubscription.remove();
+      blurSubscription.remove();
+    };
+  }, [callback, navigation]);
+};
+
+export const useIsFocused = () => {
+  const navigation = useNavigation();
+  const getNavigation = useGetter(navigation);
+  const [focused, setFocused] = useState(navigation.isFocused);
+
+  useEffect(() => {
+    const nav = getNavigation();
+    const focusSubscription = nav.addListener('willFocus', () =>
+      setFocused(true)
+    );
+    const blurSubscription = nav.addListener('willBlur', () =>
+      setFocused(false)
+    );
+    return () => {
+      focusSubscription.remove();
+      blurSubscription.remove();
+    };
+  }, [getNavigation]);
+
+  return focused;
+};
