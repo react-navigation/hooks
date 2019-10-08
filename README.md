@@ -129,9 +129,9 @@ function MyScreen() {
 
 ```js
 function Profile({ userId }) {
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = useState(null);
 
-  const fetchUser = React.useCallback(() => {
+  const fetchUser = useCallback(() => {
     const request = API.fetchUser(userId).then(
       data => setUser(data),
       error => alert(error.message)
