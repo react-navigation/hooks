@@ -16,7 +16,7 @@ https://github.com/react-navigation/web-server-example
 
 `yarn add react-navigation-hooks`
 
-`import * from 'react-navigation-hooks'`
+`import { useNavigation, useNavigationParam, ... } from 'react-navigation-hooks'`
 
 ### useNavigation()
 
