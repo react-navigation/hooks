@@ -17,8 +17,9 @@ import {
   EventType,
 } from 'react-navigation';
 
-export function useNavigation<S>(): NavigationScreenProp<S & NavigationRoute> {
+function useNavigationSafe<S>(): NavigationScreenProp<S & NavigationRoute> {
   const navigation = useContext(NavigationContext) as any; // TODO typing?
+
   if (!navigation) {
     throw new Error(
       "react-navigation hooks require a navigation context but it couldn't be found. " +
@@ -26,7 +27,57 @@ export function useNavigation<S>(): NavigationScreenProp<S & NavigationRoute> {
         'If you need to access an optional navigation object, you can useContext(NavigationContext), which may return'
     );
   }
+
   return navigation;
+}
+
+function useStableCallback(cb: (...args: any) => any) {
+  const ref = useRef(cb);
+
+  useLayoutEffect(() => {
+    ref.current = cb;
+  }, [cb]);
+
+  return useCallback((...args) => ref.current(...args), [ref]);
+};
+
+// This is intended to solve: https://github.com/react-navigation/hooks/issues/40
+function useStableActions<S>(navigation: NavigationScreenProp<S & NavigationRoute>) {
+  return {
+    // common actions
+    navigate: useStableCallback(navigation.navigate),
+    goBack: useStableCallback(navigation.goBack),
+    addListener: useStableCallback(navigation.addListener),
+    isFocused: useStableCallback(navigation.isFocused),
+    setParams: useStableCallback(navigation.setParams),
+    getParam: useStableCallback(navigation.getParam),
+    dispatch: useStableCallback(navigation.dispatch),
+    dangerouslyGetParent: useStableCallback(navigation.dangerouslyGetParent),
+    isFirstRouteInParent: useStableCallback(navigation.isFirstRouteInParent),
+
+    // drawer navigator, actions
+    openDrawer: useStableCallback(navigation.openDrawer),
+    closeDrawer: useStableCallback(navigation.closeDrawer),
+    toggleDrawer: useStableCallback(navigation.toggleDrawer),
+
+    // stack navigator actions
+    push: useStableCallback(navigation.push),
+    pop: useStableCallback(navigation.pop),
+    popToTop: useStableCallback(navigation.popToTop),
+    replace: useStableCallback(navigation.replace),
+    reset: useStableCallback(navigation.reset),
+    dismiss: useStableCallback(navigation.dismiss),
+  }
+}
+
+export function useNavigation<S>(): NavigationScreenProp<S & NavigationRoute> {
+  const navigation = useNavigationSafe<S>()
+  const actions = useStableActions<S>(navigation);
+
+  return {
+    ...navigation,
+    ...actions,
+  };
 }
 
 export function useNavigationParam<T extends keyof NavigationParams>(
@@ -44,11 +95,13 @@ export function useNavigationKey() {
 }
 
 // Useful to access the latest user-provided value
-const useGetter = <S>(value: S): (() => S) => {
+function useGetter<S>(value: S): (() => S) {
   const ref = useRef(value);
+  
   useLayoutEffect(() => {
     ref.current = value;
   });
+  
   return useCallback(() => ref.current, [ref]);
 };
 
