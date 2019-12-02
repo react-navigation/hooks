@@ -41,36 +41,121 @@ function useStableCallback(cb: (...args: any) => any) {
   return useCallback((...args) => ref.current(...args), [ref]);
 };
 
-// This is intended to solve: https://github.com/react-navigation/hooks/issues/40
-function useStableActions<S>(navigation: NavigationScreenProp<S & NavigationRoute>) {
-  return {
-    // common actions
-    navigate: useStableCallback(navigation.navigate),
-    goBack: useStableCallback(navigation.goBack),
-    addListener: useStableCallback(navigation.addListener),
-    isFocused: useStableCallback(navigation.isFocused),
-    setParams: useStableCallback(navigation.setParams),
-    getParam: useStableCallback(navigation.getParam),
-    dispatch: useStableCallback(navigation.dispatch),
-    dangerouslyGetParent: useStableCallback(navigation.dangerouslyGetParent),
-    isFirstRouteInParent: useStableCallback(navigation.isFirstRouteInParent),
 
-    // drawer navigator, actions
-    openDrawer: useStableCallback(navigation.openDrawer),
-    closeDrawer: useStableCallback(navigation.closeDrawer),
-    toggleDrawer: useStableCallback(navigation.toggleDrawer),
+type NavigationCommonActions<S> = Pick<
+  NavigationScreenProp<S & NavigationRoute>,
+  | 'navigate'
+  | 'goBack'
+  | 'addListener'
+  | 'isFocused'
+  | 'setParams'
+  | 'getParam'
+  | 'dispatch'
+  | 'dangerouslyGetParent'
+  | 'isFirstRouteInParent'
+>;
+
+type NavigationDrawerActions<S> = Pick<
+  NavigationScreenProp<S & NavigationRoute>,
+  'openDrawer' | 'closeDrawer' | 'toggleDrawer'
+>;
+
+type NavigationStackActions<S> = Pick<
+  NavigationScreenProp<S & NavigationRoute>,
+  'push' | 'pop' | 'popToTop' | 'replace' | 'reset' | 'dismiss'
+>;
+
+type NavigationActions<S> = NavigationCommonActions<S> &
+  Partial<NavigationDrawerActions<S>> &
+  Partial<NavigationStackActions<S>>;
+
+type Navigation<S> = NavigationActions<S> &
+  Omit<NavigationScreenProp<S & NavigationRoute>, keyof NavigationActions<S>>;
+
+/*
+  This is intended to solve: https://github.com/react-navigation/hooks/issues/40
+  Read more here: https://github.com/facebook/react/issues/16956
+*/
+function useStableActions<S>(navigation: NavigationScreenProp<S & NavigationRoute>): NavigationActions<S & NavigationRoute> {
+  // common actions
+  const navigate = useStableCallback(navigation.navigate);
+  const goBack = useStableCallback(navigation.goBack);
+  const addListener = useStableCallback(navigation.addListener);
+  const isFocused = useStableCallback(navigation.isFocused);
+  const setParams = useStableCallback(navigation.setParams);
+  const getParam = useStableCallback(navigation.getParam);
+  const dispatch = useStableCallback(navigation.dispatch);
+  const dangerouslyGetParent = useStableCallback(navigation.dangerouslyGetParent);
+  const isFirstRouteInParent = useStableCallback(navigation.isFirstRouteInParent);
+
+  // drawer navigator, actions
+  const openDrawer = useStableCallback(navigation.openDrawer);
+  const closeDrawer = useStableCallback(navigation.closeDrawer);
+  const toggleDrawer = useStableCallback(navigation.toggleDrawer);
+
+  // stack navigator actions
+  const push = useStableCallback(navigation.push);
+  const pop = useStableCallback(navigation.pop);
+  const popToTop = useStableCallback(navigation.popToTop);
+  const replace = useStableCallback(navigation.replace);
+  const reset = useStableCallback(navigation.reset);
+  const dismiss = useStableCallback(navigation.dismiss);
+
+  let result: NavigationActions<S & NavigationRoute> = {
+    // common actions
+    navigate,
+    goBack,
+    addListener,
+    isFocused,
+    setParams,
+    getParam,
+    dispatch,
+    dangerouslyGetParent,
+    isFirstRouteInParent,
+
+    // drawer navigator actions
+    openDrawer,
+    closeDrawer,
+    toggleDrawer,
 
     // stack navigator actions
-    push: useStableCallback(navigation.push),
-    pop: useStableCallback(navigation.pop),
-    popToTop: useStableCallback(navigation.popToTop),
-    replace: useStableCallback(navigation.replace),
-    reset: useStableCallback(navigation.reset),
-    dismiss: useStableCallback(navigation.dismiss),
+    push,
+    pop,
+    popToTop,
+    replace,
+    reset,
+    dismiss,
+  };
+
+  if (navigation.openDrawer) {
+    result = {
+      ...result,
+
+      // drawer navigator actions
+      openDrawer,
+      closeDrawer,
+      toggleDrawer,
+    }
   }
+
+  if (navigation.push) {
+    result = {
+      ...result,
+
+      // stack navigator actions
+      push,
+      pop,
+      popToTop,
+      replace,
+      reset,
+      dismiss,
+    }
+  }
+
+  return result;
 }
 
-export function useNavigation<S>(): NavigationScreenProp<S & NavigationRoute> {
+export function useNavigation<S>(): Navigation<S> {
   const navigation = useNavigationSafe<S>()
   const actions = useStableActions<S>(navigation);
 
