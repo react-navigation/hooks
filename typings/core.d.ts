@@ -1,5 +1,5 @@
-declare module "@react-navigation/core" {
-  import { Context } from 'react';
+declare module '@react-navigation/core' {
+  import { NavigationContext } from 'react-navigation';
 
-  export const NavigationContext: Context<any>;
+  export const NavigationContext;
 }
