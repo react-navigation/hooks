@@ -4,7 +4,11 @@
 
 🏄‍♀️ Surfing the wave of React Hook hype with a few convenience hooks for `@react-navigation/core` v3/v4. Destined to work on web, server, and React Native. Contributions welcome!
 
-**IMPORTANT**: [react-navigation v5](https://reactnavigation.org/blog/2020/02/06/react-navigation-5.0.html) is officially released as stable, and includes similar, but rewritten hooks (should be easy to upgrade from v4 to v5). If you use react-naviigation v5, you should import hooks from react-navigation v5 directly, and should not add this project.
+## Only for react-navigation v3 / v4 (not v5)
+
+[react-navigation v5](https://reactnavigation.org/blog/2020/02/06/react-navigation-5.0.html) is officially released as stable, and includes similar, but rewritten hooks (it should be easy to upgrade from v4 to v5). 
+
+If you use react-navigation v5, you should import hooks from react-navigation v5 directly, and should not add this project.
 
 
 ## Docs
