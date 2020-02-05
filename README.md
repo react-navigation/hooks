@@ -1,16 +1,11 @@
-# React Navigation Hooks
+# React Navigation Hooks (v3/v4 only)
 
 [![npm version](https://badge.fury.io/js/react-navigation-hooks.svg)](https://badge.fury.io/js/react-navigation-hooks) [![npm downloads](https://img.shields.io/npm/dm/react-navigation-hooks.svg)](https://www.npmjs.com/package/react-navigation-hooks) [![CircleCI badge](https://circleci.com/gh/react-navigation/hooks/tree/master.svg?style=shield)](https://circleci.com/gh/react-navigation/hooks/tree/master) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactnavigation.org/docs/contributing.html)
 
 🏄‍♀️ Surfing the wave of React Hook hype with a few convenience hooks for `@react-navigation/core` v3/v4. Destined to work on web, server, and React Native. Contributions welcome!
 
-**IMPORTANT**: [react-navigation v5](https://github.com/react-navigation/navigation-ex) is already on its way and is a full rewrite (including hooks). This project will not live past v4, and will try to make the migration path from v4 to v5 easy by not introducing any new hook that won't be in v5.
+**IMPORTANT**: [react-navigation v5](https://reactnavigation.org/blog/2020/02/06/react-navigation-5.0.html) is officially released as stable, and includes similar, but rewritten hooks (should be easy to upgrade from v4 to v5). If you use react-naviigation v5, you should import hooks from react-navigation v5 directly, and should not add this project.
 
-## Examples (web only so far)
-
-See an example web app which uses react-navigation and hooks on the client and the server:
-
-https://github.com/react-navigation/web-server-example
 
 ## Docs
 
@@ -181,4 +176,10 @@ One (always, and only one) of the following values will be true in the focus sta
 - isBlurring
 - isBlurred
 - isFocusing
+
+## Web example
+
+See an example web app which uses react-navigation and hooks on the client and the server:
+
+https://github.com/react-navigation/web-server-example
 
