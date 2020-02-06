@@ -17,7 +17,10 @@ import {
   EventType,
 } from 'react-navigation';
 
-export function useNavigation<S>(): NavigationScreenProp<S & NavigationRoute> {
+export function useNavigation<S, P = NavigationParams>(): NavigationScreenProp<
+  S & NavigationRoute,
+  P
+> {
   const navigation = useContext(NavigationContext) as any; // TODO typing?
   if (!navigation) {
     throw new Error(
@@ -32,7 +35,7 @@ export function useNavigation<S>(): NavigationScreenProp<S & NavigationRoute> {
 export function useNavigationParam<T extends keyof NavigationParams>(
   paramName: T
 ) {
-  return useNavigation().getParam(paramName);
+  return useNavigation().getParam(paramName); // TODO typing ?
 }
 
 export function useNavigationState() {

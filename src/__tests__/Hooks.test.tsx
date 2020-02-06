@@ -19,17 +19,23 @@ import {
 
 interface DetailsScreenParams {
   from: string;
+  id: number;
 }
 
 const HomeScreen = () => {
   const { navigate } = useNavigation();
-  const params: DetailsScreenParams = { from: 'Home' };
+  const params: DetailsScreenParams = { from: 'Home', id: 1 };
   return navigate('Details', params);
 };
 
 const DetailsScreen = () => {
   const from = useNavigationParam('from');
-  return <p>{from}</p>;
+  const id = useNavigation<unknown, DetailsScreenParams>().getParam('id');
+  return (
+    <p>
+      {from}:{id}
+    </p>
+  );
 };
 
 const OtherScreen = () => {
@@ -102,7 +108,7 @@ describe('AppNavigator1 Stack', () => {
 
   it('useNavigationParam: Get passed parameter', () => {
     const children = navigationContainer.toJSON().children;
-    expect(children).toContain('Home');
+    expect(children).toStrictEqual(['Home', ':', '1']);
   });
 
   afterEach(() => {
