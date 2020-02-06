@@ -23,6 +23,7 @@
     "target": "esnext",
     "plugins": [{ "name": "typescript-tslint-plugin" }]
   },
+  "exclude": ["./example"],
   "typeAcquisition": {
     "enable": true,
     "include": ["react", "react-native"]
